@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Profile Interaktif - jQuery</title>
+    <title>Latihan jQuery - Keranjang Makeup</title>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -10,12 +10,11 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            margin: 0;
             padding: 30px;
         }
 
         .container {
-            width: 500px;
+            width: 600px;
             margin: auto;
             background-color: white;
             padding: 25px;
@@ -28,29 +27,20 @@
             color: #f46b99;
         }
 
-        .profile {
-            text-align: center;
-            padding: 20px;
+        .produk-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .produk {
+            padding: 15px;
             background-color: #fce4ec;
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
-        .profile h2 {
-            margin-bottom: 5px;
-        }
-
-        .profile p {
-            color: #555;
-        }
-
-        .skill {
-            display: inline-block;
-            background-color: #f46b99;
-            color: white;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
-            font-size: 14px;
+        .produk h3 {
+            margin-top: 0;
         }
 
         button {
@@ -67,8 +57,41 @@
             background-color: #d94f7a;
         }
 
-        .form {
-            margin-top: 25px;
+        .cart {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fce4ec;
+            border-radius: 8px;
+        }
+
+        .cart-item {
+            background-color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .diskon {
+            color: green;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 400px;
+            margin: 100px auto;
+            padding: 25px;
+            border-radius: 10px;
         }
 
         input,
@@ -81,7 +104,7 @@
         }
 
         textarea {
-            height: 100px;
+            height: 80px;
         }
 
         .error {
@@ -90,10 +113,11 @@
             display: none;
         }
 
-        #successMessage {
-            color: green;
-            display: none;
-            text-align: center;
+        .riwayat {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fce4ec;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -102,247 +126,418 @@
 
     <div class="container">
 
-        <h1>Profile Saya</h1>
+        <h1>Kunkookies Kosmetik</h1>
 
-        <div class="profile" id="profileCard">
+        <div class="produk-container">
 
-            <h2 id="profileName">
-                Andini Salsabilla
-            </h2>
+            <div class="produk">
+                <h3>Lipstik</h3>
+                <p>Rp 50.000</p>
+                <button class="tambah" data-nama="Lipstik" data-harga="50000">
+                    Tambah
+                </button>
+            </div>
 
-            <p id="profileJob">
-                Mahasiswa Sistem Informasi
-            </p>
+            <div class="produk">
+                <h3>Cushion</h3>
+                <p>Rp 85.000</p>
+                <button class="tambah" data-nama="Cushion" data-harga="85000">
+                    Tambah
+                </button>
+            </div>
 
-            <p id="profileSkill">
-                <span class="skill">HTML</span>
-                <span class="skill">CSS</span>
-                <span class="skill">JavaScript</span>
-            </p>
+            <div class="produk">
+                <h3>Blush On</h3>
+                <p>Rp 45.000</p>
+                <button class="tambah" data-nama="Blush On" data-harga="45000">
+                    Tambah
+                </button>
+            </div>
+
+            <div class="produk">
+                <h3>Mascara</h3>
+                <p>Rp 60.000</p>
+                <button class="tambah" data-nama="Mascara" data-harga="60000">
+                    Tambah
+                </button>
+            </div>
+
+            <div class="produk">
+                <h3>Eyeshadow</h3>
+                <p>Rp 75.000</p>
+                <button class="tambah" data-nama="Eyeshadow" data-harga="75000">
+                    Tambah
+                </button>
+            </div>
+
+            <div class="produk">
+                <h3>Highlighter</h3>
+                <p>Rp 55.000</p>
+                <button class="tambah" data-nama="Highlighter" data-harga="55000">
+                    Tambah
+                </button>
+            </div>
 
         </div>
 
-        <div style="text-align: center; margin-top: 15px;">
 
-            <button id="btnGantiNama">
-                Ganti Nama
-            </button>
+        <div class="cart">
 
-            <button id="btnTambahSkill">
-                Tambah Skill
-            </button>
+            <h2>Keranjang</h2>
 
-            <button id="btnAnimasi">
-                Efek Fade & Slide
-            </button>
+            <div id="cartItems">
+                Keranjang masih kosong
+            </div>
 
-            <button id="btnReset">
-                Reset
+            <p id="cartTotal">
+                Total: Rp 0
+            </p>
+
+            <p id="discountMessage" class="diskon"></p>
+
+            <button id="checkout">
+                Checkout
             </button>
 
         </div>
 
-        <div class="form">
 
-            <h2>Form Kontak</h2>
+        <div class="riwayat">
 
-            <form id="contactForm">
+            <h2>Riwayat Pembelian</h2>
 
-                <label>Nama Lengkap</label>
-
-                <input
-                    type="text"
-                    id="nama"
-                    placeholder="Masukkan nama"
-                >
-
-                <p class="error" id="errNama">
-                    Nama minimal 3 karakter
-                </p>
-
-                <label>Email</label>
-
-                <input
-                    type="text"
-                    id="email"
-                    placeholder="contoh@email.com"
-                >
-
-                <p class="error" id="errEmail">
-                    Email harus diisi
-                </p>
-
-                <label>Pesan</label>
-
-                <textarea
-                    id="pesan"
-                    placeholder="Tulis pesan"
-                ></textarea>
-
-                <p class="error" id="errPesan">
-                    Pesan minimal 10 karakter
-                </p>
-
-                <button type="submit">
-                    Kirim Pesan
-                </button>
-
-                <button type="button" id="btnResetForm">
-                    Reset Form
-                </button>
-
-            </form>
-
-            <p id="successMessage">
-                Pesan berhasil dikirim!
-            </p>
+            <div id="history">
+                Belum ada riwayat
+            </div>
 
         </div>
 
     </div>
 
+
+    <div class="modal" id="modal">
+
+        <div class="modal-content">
+
+            <h2>Data Pembeli</h2>
+
+            <form id="buyerForm">
+
+                <label>Nama</label>
+
+                <input
+                    type="text"
+                    id="buyerName"
+                    placeholder="Masukkan nama"
+                >
+
+                <p class="error" id="errorName">
+                    Nama harus diisi
+                </p>
+
+
+                <label>Alamat</label>
+
+                <textarea
+                    id="buyerAddress"
+                    placeholder="Masukkan alamat"
+                ></textarea>
+
+                <p class="error" id="errorAddress">
+                    Alamat harus diisi
+                </p>
+
+
+                <label>No HP</label>
+
+                <input
+                    type="text"
+                    id="buyerPhone"
+                    placeholder="Masukkan nomor HP"
+                >
+
+                <p class="error" id="errorPhone">
+                    No HP harus diisi
+                </p>
+
+
+                <button type="submit">
+                    Konfirmasi
+                </button>
+
+                <button type="button" id="cancel">
+                    Batal
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
     <script>
 
-        $('#btnGantiNama').click(function() {
+        let cart = [];
 
-            let namaBaru = prompt('Masukkan nama baru:');
 
-            if (namaBaru !== null && namaBaru.trim() !== '') {
+        $('.tambah').click(function() {
 
-                $('#profileName')
-                    .text(namaBaru)
-                    .css('color', '#2a5298');
+            let nama = $(this).data('nama');
+            let harga = Number($(this).data('harga'));
+
+            let barang = cart.find(function(item) {
+                return item.nama === nama;
+            });
+
+            if (barang) {
+
+                barang.qty++;
+
+            } else {
+
+                cart.push({
+                    nama: nama,
+                    harga: harga,
+                    qty: 1
+                });
 
             }
+
+            updateCartUI();
 
         });
 
 
-        let skill = [
-            'jQuery',
-            'PHP',
-            'MySQL',
-            'Bootstrap',
-            'GitHub'
-        ];
+        function updateCartUI() {
 
-        let nomorSkill = 0;
+            $('#cartItems').html('');
 
-        $('#btnTambahSkill').click(function() {
+            let totalHarga = cart.reduce(function(sum, item) {
+                return sum + (item.harga * item.qty);
+            }, 0);
 
-            if (nomorSkill < skill.length) {
 
-                $('#profileSkill').append(
-                    '<span class="skill">' +
-                    skill[nomorSkill] +
-                    '</span>'
+            if (cart.length === 0) {
+
+                $('#cartItems').text('Keranjang masih kosong');
+
+            } else {
+
+                cart.forEach(function(item) {
+
+                    $('#cartItems').append(
+                        '<div class="cart-item">' +
+                        item.nama +
+                        ' x ' +
+                        item.qty +
+                        ' = Rp ' +
+                        (item.harga * item.qty).toLocaleString('id-ID') +
+                        '</div>'
+                    );
+
+                });
+
+            }
+
+
+            if (totalHarga > 100000) {
+
+                let diskon = totalHarga * 0.1;
+
+                totalHarga = totalHarga - diskon;
+
+                $('#cartTotal').html(
+                    'Total awal: Rp ' +
+                    (totalHarga + diskon).toLocaleString('id-ID') +
+                    '<br>Diskon 10%: Rp ' +
+                    diskon.toLocaleString('id-ID') +
+                    '<br>Total bayar: Rp ' +
+                    totalHarga.toLocaleString('id-ID')
                 );
 
-                nomorSkill++;
+                $('#discountMessage').text(
+                    'Mendapatkan diskon 10%'
+                );
+
+            } else {
+
+                $('#cartTotal').text(
+                    'Total: Rp ' +
+                    totalHarga.toLocaleString('id-ID')
+                );
+
+                $('#discountMessage').text('');
+
+            }
+
+        }
+
+
+        function simpanRiwayat(total, qty) {
+
+            const riwayat =
+                JSON.parse(localStorage.getItem('riwayat')) || [];
+
+            riwayat.push({
+                tanggal: new Date().toISOString(),
+                total: total,
+                qty: qty
+            });
+
+            localStorage.setItem(
+                'riwayat',
+                JSON.stringify(riwayat)
+            );
+
+        }
+
+
+        function tampilkanRiwayat() {
+
+            const riwayat =
+                JSON.parse(localStorage.getItem('riwayat')) || [];
+
+            $('#history').html('');
+
+
+            if (riwayat.length === 0) {
+
+                $('#history').text('Belum ada riwayat');
+
+                return;
+
+            }
+
+
+            riwayat.forEach(function(item) {
+
+                $('#history').append(
+                    '<div class="cart-item">' +
+                    'Tanggal: ' +
+                    new Date(item.tanggal).toLocaleString('id-ID') +
+                    '<br>Jumlah: ' +
+                    item.qty +
+                    '<br>Total: Rp ' +
+                    item.total.toLocaleString('id-ID') +
+                    '</div>'
+                );
+
+            });
+
+        }
+
+
+        $('#checkout').click(function() {
+
+            if (cart.length === 0) {
+
+                alert('Keranjang masih kosong');
+
+            } else {
+
+                $('#modal').fadeIn();
 
             }
 
         });
 
 
-        $('#btnAnimasi').click(function() {
+        $('#cancel').click(function() {
 
-            $('#profileCard')
-                .fadeOut(300)
-                .fadeIn(600)
-                .slideUp(200)
-                .slideDown(300);
+            $('#modal').fadeOut();
 
         });
 
 
-        $('#btnReset').click(function() {
-
-            $('#profileName')
-                .text('Andini Salsabilla')
-                .css('color', 'black');
-
-            $('#profileSkill').html(
-                '<span class="skill">HTML</span>' +
-                '<span class="skill">CSS</span>' +
-                '<span class="skill">JavaScript</span>'
-            );
-
-            nomorSkill = 0;
-
-        });
-
-
-        $('#contactForm').submit(function(e) {
+        $('#buyerForm').submit(function(e) {
 
             e.preventDefault();
 
             let valid = true;
 
-            if ($('#nama').val().trim().length < 3) {
 
-                $('#errNama').show();
+            if ($('#buyerName').val().trim() === '') {
+
+                $('#errorName').show();
 
                 valid = false;
 
             } else {
 
-                $('#errNama').hide();
+                $('#errorName').hide();
 
             }
 
 
-            if ($('#email').val().trim() === '') {
+            if ($('#buyerAddress').val().trim() === '') {
 
-                $('#errEmail').show();
+                $('#errorAddress').show();
 
                 valid = false;
 
             } else {
 
-                $('#errEmail').hide();
+                $('#errorAddress').hide();
 
             }
 
 
-            if ($('#pesan').val().trim().length < 10) {
+            if ($('#buyerPhone').val().trim() === '') {
 
-                $('#errPesan').show();
+                $('#errorPhone').show();
 
                 valid = false;
 
             } else {
 
-                $('#errPesan').hide();
+                $('#errorPhone').hide();
 
             }
 
 
             if (valid) {
 
-                $('#successMessage')
-                    .fadeIn()
-                    .delay(2000)
-                    .fadeOut();
+                let totalHarga = cart.reduce(function(sum, item) {
+                    return sum + (item.harga * item.qty);
+                }, 0);
+
+
+                let qty = cart.reduce(function(sum, item) {
+                    return sum + item.qty;
+                }, 0);
+
+
+                if (totalHarga > 100000) {
+
+                    totalHarga = totalHarga - (totalHarga * 0.1);
+
+                }
+
+
+                simpanRiwayat(totalHarga, qty);
+
+
+                cart = [];
+
+                updateCartUI();
+
+                tampilkanRiwayat();
+
+                $('#modal').fadeOut();
+
+                $('#buyerForm')[0].reset();
+
+                alert('Checkout berhasil');
 
             }
 
         });
 
 
-        $('#btnResetForm').click(function() {
+        updateCartUI();
 
-            $('#nama').val('');
-
-            $('#email').val('');
-
-            $('#pesan').val('');
-
-            $('.error').hide();
-
-            $('#successMessage').hide();
-
-        });
+        tampilkanRiwayat();
 
     </script>
 
