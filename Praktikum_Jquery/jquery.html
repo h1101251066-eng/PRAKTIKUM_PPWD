@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile Interaktif - jQuery</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            width: 500px;
+            margin: auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px gray;
+        }
+
+        h1 {
+            text-align: center;
+            color: #f46b99;
+        }
+
+        .profile {
+            text-align: center;
+            padding: 20px;
+            background-color: #fce4ec;
+            border-radius: 10px;
+        }
+
+        .profile h2 {
+            margin-bottom: 5px;
+        }
+
+        .profile p {
+            color: #555;
+        }
+
+        .skill {
+            display: inline-block;
+            background-color: #f46b99;
+            color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f46b99;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #d94f7a;
+        }
+
+        .form {
+            margin-top: 25px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            display: none;
+        }
+
+        #successMessage {
+            color: green;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Profile Saya</h1>
+
+        <div class="profile" id="profileCard">
+
+            <h2 id="profileName">
+                Andini Salsabilla
+            </h2>
+
+            <p id="profileJob">
+                Mahasiswa Sistem Informasi
+            </p>
+
+            <p id="profileSkill">
+                <span class="skill">HTML</span>
+                <span class="skill">CSS</span>
+                <span class="skill">JavaScript</span>
+            </p>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 15px;">
+
+            <button id="btnGantiNama">
+                Ganti Nama
+            </button>
+
+            <button id="btnTambahSkill">
+                Tambah Skill
+            </button>
+
+            <button id="btnAnimasi">
+                Efek Fade & Slide
+            </button>
+
+            <button id="btnReset">
+                Reset
+            </button>
+
+        </div>
+
+        <div class="form">
+
+            <h2>Form Kontak</h2>
+
+            <form id="contactForm">
+
+                <label>Nama Lengkap</label>
+
+                <input
+                    type="text"
+                    id="nama"
+                    placeholder="Masukkan nama"
+                >
+
+                <p class="error" id="errNama">
+                    Nama minimal 3 karakter
+                </p>
+
+                <label>Email</label>
+
+                <input
+                    type="text"
+                    id="email"
+                    placeholder="contoh@email.com"
+                >
+
+                <p class="error" id="errEmail">
+                    Email harus diisi
+                </p>
+
+                <label>Pesan</label>
+
+                <textarea
+                    id="pesan"
+                    placeholder="Tulis pesan"
+                ></textarea>
+
+                <p class="error" id="errPesan">
+                    Pesan minimal 10 karakter
+                </p>
+
+                <button type="submit">
+                    Kirim Pesan
+                </button>
+
+                <button type="button" id="btnResetForm">
+                    Reset Form
+                </button>
+
+            </form>
+
+            <p id="successMessage">
+                Pesan berhasil dikirim!
+            </p>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        $('#btnGantiNama').click(function() {
+
+            let namaBaru = prompt('Masukkan nama baru:');
+
+            if (namaBaru !== null && namaBaru.trim() !== '') {
+
+                $('#profileName')
+                    .text(namaBaru)
+                    .css('color', '#2a5298');
+
+            }
+
+        });
+
+
+        let skill = [
+            'jQuery',
+            'PHP',
+            'MySQL',
+            'Bootstrap',
+            'GitHub'
+        ];
+
+        let nomorSkill = 0;
+
+        $('#btnTambahSkill').click(function() {
+
+            if (nomorSkill < skill.length) {
+
+                $('#profileSkill').append(
+                    '<span class="skill">' +
+                    skill[nomorSkill] +
+                    '</span>'
+                );
+
+                nomorSkill++;
+
+            }
+
+        });
+
+
+        $('#btnAnimasi').click(function() {
+
+            $('#profileCard')
+                .fadeOut(300)
+                .fadeIn(600)
+                .slideUp(200)
+                .slideDown(300);
+
+        });
+
+
+        $('#btnReset').click(function() {
+
+            $('#profileName')
+                .text('Andini Salsabilla')
+                .css('color', 'black');
+
+            $('#profileSkill').html(
+                '<span class="skill">HTML</span>' +
+                '<span class="skill">CSS</span>' +
+                '<span class="skill">JavaScript</span>'
+            );
+
+            nomorSkill = 0;
+
+        });
+
+
+        $('#contactForm').submit(function(e) {
+
+            e.preventDefault();
+
+            let valid = true;
+
+            if ($('#nama').val().trim().length < 3) {
+
+                $('#errNama').show();
+
+                valid = false;
+
+            } else {
+
+                $('#errNama').hide();
+
+            }
+
+
+            if ($('#email').val().trim() === '') {
+
+                $('#errEmail').show();
+
+                valid = false;
+
+            } else {
+
+                $('#errEmail').hide();
+
+            }
+
+
+            if ($('#pesan').val().trim().length < 10) {
+
+                $('#errPesan').show();
+
+                valid = false;
+
+            } else {
+
+                $('#errPesan').hide();
+
+            }
+
+
+            if (valid) {
+
+                $('#successMessage')
+                    .fadeIn()
+                    .delay(2000)
+                    .fadeOut();
+
+            }
+
+        });
+
+
+        $('#btnResetForm').click(function() {
+
+            $('#nama').val('');
+
+            $('#email').val('');
+
+            $('#pesan').val('');
+
+            $('.error').hide();
+
+            $('#successMessage').hide();
+
+        });
+
+    </script>
+
+</body>
+
+</html>
