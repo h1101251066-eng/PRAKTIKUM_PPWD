@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Deret Bilangan Ganjil</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f0f8ff;
+        }
+
+        .deret {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            width: 80%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-tampilkan {
+            background: #F9E79F;
+        }
+
+        .btn-tampilkan:hover {
+            background: #F7DC6F;
+        }
+
+        .hasil {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="deret">
+
+        <h2>Deret Bilangan Ganjil</h2>
+
+        <input type="number" id="nilaiN" placeholder="Masukkan nilai N">
+
+        <br>
+
+        <button class="btn-tampilkan" onclick="tampilkanDeret()">Tampilkan</button>
+
+        <div class="hasil">
+            <span id="hasilDeret">-</span>
+        </div>
+
+    </div>
+
+    <script>
+
+        function tampilkanDeret() {
+
+            let N = document.getElementById('nilaiN').value;
+
+            if (N === "") {
+                alert("Masukkan nilai N!");
+                return;
+            }
+
+            N = parseInt(N);
+
+            if (N < 1) {
+                document.getElementById('hasilDeret').innerHTML =
+                    "Masukkan angka positif!";
+                return;
+            }
+
+            let deret = "";
+
+            for (let i = 1; i <= N; i += 2) {
+
+                deret += i;
+
+                if (i + 2 <= N) {
+                    deret += ", ";
+                }
+            }
+
+            document.getElementById('hasilDeret').innerHTML = deret;
+        }
+
+    </script>
+
+</body>
+
+</html>

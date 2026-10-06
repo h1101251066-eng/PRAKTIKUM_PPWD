@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator BMI</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f0f8ff;
+        }
+
+        .bmi {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            width: 80%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-hitung {
+            background: #F9E79F;
+        }
+
+        .btn-hitung:hover {
+            background: #F7DC6F;
+        }
+
+        .btn-reset {
+            background: #FF8AE0;
+        }
+
+        .hasil {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bmi">
+        <h2>Kalkulator BMI</h2>
+
+        <input type="number" id="berat" placeholder="Berat (kg)">
+
+        <input type="number" id="tinggi" placeholder="Tinggi (cm)">
+
+        <br>
+
+        <button class="btn-hitung" onclick="hitungBMI()">Hitung BMI</button>
+
+        <button class="btn-reset" onclick="reset()">Reset</button>
+
+        <div class="hasil">
+            BMI: <span id="hasilBMI">-</span>
+            <br>
+            Status: <span id="statusBMI">-</span>
+        </div>
+    </div>
+
+    <script>
+        function hitungBMI() {
+            let berat = parseFloat(document.getElementById('berat').value);
+            let tinggi = parseFloat(document.getElementById('tinggi').value);
+
+            tinggi = tinggi / 100;
+
+            let bmi = berat / (tinggi * tinggi);
+            let status;
+
+            if (bmi < 18.5) {
+                status = "Kurus";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                status = "Normal";
+            } else if (bmi >= 25.0 && bmi <= 29.9) {
+                status = "Gemuk";
+            } else if (bmi >= 30) {
+                status = "Obesitas";
+            }
+
+            document.getElementById('hasilBMI').innerHTML = bmi.toFixed(2);
+            document.getElementById('statusBMI').innerHTML = status;
+        }
+
+        function reset() {
+            document.getElementById('berat').value = "";
+            document.getElementById('tinggi').value = "";
+            document.getElementById('hasilBMI').innerHTML = "-";
+            document.getElementById('statusBMI').innerHTML = "-";
+        }
+    </script>
+
+</body>
+</html>
